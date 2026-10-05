@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Account — TaskFlow</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="navbar">
+    <a href="/index.html" class="brand">
+      <span>⚡ TaskFlow</span>
+    </a>
+    <nav class="nav-links">
+      <a href="/login.html" class="nav-link">Already registered? Sign In</a>
+    </nav>
+  </header>
+
+  <div class="auth-container">
+    <div class="glass-panel auth-card">
+      <div class="auth-header">
+        <h2>Create an Account</h2>
+        <p>Get started with TaskFlow Cloud-Native Manager</p>
+      </div>
+
+      <form id="register-form">
+        <div class="form-group">
+          <label class="form-label" for="name">Full Name</label>
+          <input 
+            type="text" 
+            id="name" 
+            class="form-control" 
+            placeholder="Ritik Bhardwaj" 
+            required 
+            autocomplete="name"
+          >
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="email">Email Address</label>
+          <input 
+            type="email" 
+            id="email" 
+            class="form-control" 
+            placeholder="ritik@taskflow.dev" 
+            required 
+            autocomplete="email"
+          >
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="password">Password</label>
+          <input 
+            type="password" 
+            id="password" 
+            class="form-control" 
+            placeholder="At least 6 characters" 
+            required 
+            minlength="6"
+            autocomplete="new-password"
+          >
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="confirmPassword">Confirm Password</label>
+          <input 
+            type="password" 
+            id="confirmPassword" 
+            class="form-control" 
+            placeholder="Repeat password" 
+            required 
+            minlength="6"
+            autocomplete="new-password"
+          >
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 0.5rem;">
+          Create Account
+        </button>
+      </form>
+
+      <div style="margin-top: 1.5rem; text-align: center; font-size: 0.9rem; color: var(--text-muted);">
+        Already have an account? <a href="/login.html" style="color: var(--accent-primary); font-weight: 600; text-decoration: none;">Sign in here</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+</body>
+</html>

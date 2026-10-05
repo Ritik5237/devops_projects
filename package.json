@@ -1,0 +1,21 @@
+{
+  "name": "taskflow",
+  "version": "1.0.0",
+  "description": "TaskFlow - Cloud-Native Task Manager with End-to-End DevOps Automation",
+  "scripts": {
+    "start": "cd backend && npm start",
+    "dev": "cd backend && npm run dev",
+    "test": "cd backend && npm test",
+    "seed": "cd backend && npm run seed"
+  },
+  "keywords": [
+    "devops",
+    "taskflow",
+    "kubernetes",
+    "jenkins",
+    "terraform",
+    "ansible"
+  ],
+  "author": "Ritik Bhardwaj",
+  "license": "ISC"
+}
