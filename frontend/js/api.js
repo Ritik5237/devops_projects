@@ -1,8 +1,6 @@
 // TaskFlow - Centralized API Service
 
-const API_BASE_URL = window.location.origin.includes('5000') || window.location.origin.includes('localhost') 
-  ? '/api' 
-  : '/api';
+const API_BASE_URL = '/api';
 
 const API = {
   // Token Management
