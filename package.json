@@ -6,7 +6,13 @@
     "start": "cd backend && npm start",
     "dev": "cd backend && npm run dev",
     "test": "cd backend && npm test",
-    "seed": "cd backend && npm run seed"
+    "seed": "cd backend && npm run seed",
+    "docker:build": "docker build -t taskflow:latest .",
+    "docker:up": "docker compose up -d",
+    "docker:down": "docker compose down",
+    "k8s:apply": "kubectl apply -k k8s/",
+    "k8s:delete": "kubectl delete -k k8s/",
+    "k8s:status": "kubectl get all -n taskflow"
   },
   "keywords": [
     "devops",

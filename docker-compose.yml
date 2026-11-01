@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  # TaskFlow Full-Stack Web Application (Node.js + Frontend)
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: taskflow-app
+    restart: unless-stopped
+    ports:
+      - "5050:5050"
+    environment:
+      - PORT=5050
+      - NODE_ENV=production
+      - MONGO_URI=${MONGO_URI:-mongodb://mongodb:27017/taskflow_db}
+      - JWT_SECRET=supersecretjwtkey_taskflow_devops_2026_change_in_production
+      - JWT_EXPIRE=7d
+      - GEMINI_API_KEY=${GEMINI_API_KEY:-}
+    networks:
+      - taskflow-network
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:5050/health" ]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+  # MongoDB Database with Persistent Volume
+  mongodb:
+    image: mongo:7.0
+    container_name: taskflow-mongodb
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - taskflow-network
+    healthcheck:
+      test: [ "CMD", "mongosh", "--eval", "db.adminCommand('ping')" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+
+volumes:
+  mongo_data:
+    name: taskflow_mongo_data
+
+networks:
+  taskflow-network:
+    name: taskflow-network
+    driver: bridge

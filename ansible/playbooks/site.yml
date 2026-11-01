@@ -1,0 +1,10 @@
+---
+# Master Orchestration Playbook: End-to-End TaskFlow Node Provisioning
+- name: TaskFlow Infrastructure Orchestration
+  import_playbook: setup_docker.yml
+
+- name: Kubernetes Host Preparation
+  import_playbook: setup_k8s_node.yml
+
+- name: Application Deployment & Health Verification
+  import_playbook: deploy_taskflow.yml

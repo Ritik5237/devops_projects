@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard — TaskFlow</title>
+  <title>Dashboard — TaskFlow Pro</title>
   <link rel="stylesheet" href="/css/style.css">
 </head>
 
@@ -12,19 +12,60 @@
   <!-- Top Navigation -->
   <header class="navbar">
     <a href="/dashboard.html" class="brand">
-      <span>⚡ TaskFlow</span>
-      <span class="brand-badge">App</span>
+      <span class="brand-logo-icon">⚡</span>
+      <span class="brand-text">TaskFlow</span>
+      <span class="brand-badge">Pro</span>
     </a>
+
     <div class="nav-links">
-      <span style="font-size: 0.9rem; color: var(--text-muted);">
-        👤 <strong id="user-name-display" style="color: var(--text-main);">User</strong>
-      </span>
-      <button id="logout-btn" class="btn btn-secondary btn-sm">Sign Out</button>
+      <button id="daily-briefing-btn" class="btn btn-ai btn-sm" onclick="openDailyBriefingModal()">
+        ✨ AI Standup Brief
+      </button>
+
+      <!-- User Profile Capsule -->
+      <div class="user-profile-capsule" onclick="openEditProfileModal()" title="Click to view and edit your profile">
+        <div class="user-avatar-circle" id="user-avatar-initials">U</div>
+        <div class="user-profile-meta">
+          <span class="user-profile-name" id="user-name-display">User</span>
+          <span class="user-profile-role">Active Account</span>
+        </div>
+        <button type="button" class="btn-profile-edit" title="Edit Profile" onclick="event.stopPropagation(); openEditProfileModal();">
+          ✏️ Edit Profile
+        </button>
+      </div>
+
+      <button id="logout-btn" class="btn btn-secondary btn-sm" title="Sign out of TaskFlow">
+        Sign Out
+      </button>
     </div>
   </header>
 
   <main class="dashboard-container">
-    <!-- Quick Statistics -->
+    <!-- Welcome Header Strip -->
+    <section class="dashboard-hero-strip glass-panel">
+      <div class="hero-strip-content">
+        <div class="hero-strip-greeting">
+          <div class="greeting-badge">
+            <span class="pulsing-dot"></span>
+            <span id="current-date-display">Today</span>
+          </div>
+          <h1 class="dashboard-greeting-title">
+            Welcome back, <span id="welcome-user-name" class="text-gradient">Developer</span> 👋
+          </h1>
+          <p class="dashboard-greeting-subtitle">
+            Organize, prioritize, and accomplish your work with intelligent AI scheduling.
+          </p>
+        </div>
+        <div class="hero-strip-metric">
+          <div class="completion-pill">
+            <span class="completion-pill-label">Completion Velocity</span>
+            <div class="completion-pill-value" id="completion-rate-display">0% Done</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quick Statistics Grid -->
     <section class="stats-grid">
       <div class="glass-panel stat-card">
         <div class="stat-icon total">📋</div>
@@ -59,11 +100,51 @@
       </div>
     </section>
 
+    <!-- AI Smart Add Bar (Clean & Aesthetic, No Clutter) -->
+    <section class="glass-panel ai-quick-section">
+      <div class="ai-quick-header">
+        <div class="ai-quick-brand">
+          <span class="ai-sparkle-icon">✨</span>
+          <span class="ai-quick-title">Smart Task Scheduler</span>
+          <span class="ai-badge">Gemini AI</span>
+        </div>
+
+        <div class="ai-quick-controls">
+          <div class="ai-control-pill" title="Select task difficulty or let AI calculate">
+            <label for="ai-quick-difficulty" class="control-pill-label">Difficulty:</label>
+            <select id="ai-quick-difficulty" class="control-pill-select">
+              <option value="Auto">✨ Auto (AI)</option>
+              <option value="High">🔴 High Priority</option>
+              <option value="Medium">🟡 Medium</option>
+              <option value="Low">🟢 Low</option>
+            </select>
+          </div>
+
+          <div class="ai-control-pill" title="Choose completion deadline or leave blank for AI estimate">
+            <label for="ai-quick-date" class="control-pill-label">Target Date:</label>
+            <input type="date" id="ai-quick-date" class="control-pill-date" title="Leave blank for smart date calculation">
+          </div>
+        </div>
+      </div>
+
+      <div class="ai-quick-input-row">
+        <div class="ai-input-wrapper">
+          <span class="ai-input-glow-icon">🪄</span>
+          <input type="text" id="ai-quick-input" class="ai-quick-input"
+            placeholder="Describe any task in natural language... (e.g. 'Deploy Docker container to Kubernetes by Friday')">
+        </div>
+        <button id="ai-quick-submit-btn" class="btn btn-ai" onclick="handleAiQuickAdd()">
+          <span id="ai-quick-spinner" class="spinner-small" style="display: none;"></span>
+          <span id="ai-quick-btn-text">✨ Smart Add</span>
+        </button>
+      </div>
+    </section>
+
     <!-- Toolbar: Search, Filters & Action -->
     <section class="glass-panel controls-bar">
       <div class="search-box">
         <span class="search-icon">🔍</span>
-        <input type="text" id="search-input" class="form-control" placeholder="Search tasks by title or details...">
+        <input type="text" id="search-input" class="form-control" placeholder="Search tasks by title, checklist, or tags...">
       </div>
 
       <div class="filter-group">
@@ -76,7 +157,7 @@
 
         <select id="filter-priority" class="filter-select">
           <option value="All">All Priorities</option>
-          <option value="High">High</option>
+          <option value="High">High Priority</option>
           <option value="Medium">Medium</option>
           <option value="Low">Low</option>
         </select>
@@ -88,7 +169,7 @@
         </select>
 
         <button class="btn btn-primary" onclick="openTaskModal()">
-          + Add Task
+          + New Task
         </button>
       </div>
     </section>
@@ -109,15 +190,33 @@
 
       <form id="task-form">
         <div class="form-group">
-          <label class="form-label" for="task-title-input">Task Title *</label>
-          <input type="text" id="task-title-input" class="form-control" placeholder="e.g. Set up Jenkins pipeline"
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+            <label class="form-label" for="task-title-input" style="margin-bottom: 0;">Task Title *</label>
+            <button type="button" class="btn-ai-outline" id="ai-breakdown-btn" onclick="triggerAiBreakdown()">
+              <span id="ai-breakdown-spinner" class="spinner-small" style="display: none;"></span>
+              <span>✨ Gemini Breakdown</span>
+            </button>
+          </div>
+          <input type="text" id="task-title-input" class="form-control" placeholder="e.g. Set up CI/CD pipeline with GitHub Actions"
             required maxlength="120">
         </div>
 
-        <div class="form-group">
-          <label class="form-label" for="task-desc-input">Description</label>
+        <!-- AI Breakdown Preview Box (Hidden by default) -->
+        <div id="ai-breakdown-box" class="ai-breakdown-result" style="display: none;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+            <span class="ai-badge">✨ Suggested Breakdown</span>
+            <button type="button" class="btn-ai-outline" style="font-size: 0.72rem; padding: 0.2rem 0.5rem;"
+              onclick="applyAiBreakdown()">
+              Apply Subtasks to Description
+            </button>
+          </div>
+          <div id="ai-breakdown-content"></div>
+        </div>
+
+        <div class="form-group" style="margin-top: 1rem;">
+          <label class="form-label" for="task-desc-input">Description & Actionable Checklist</label>
           <textarea id="task-desc-input" class="form-control"
-            placeholder="Add relevant notes, acceptance criteria, or links..." rows="3" maxlength="1000"></textarea>
+            placeholder="Add objectives, markdown checklist (- [ ] Item), or notes..." rows="5" maxlength="2000"></textarea>
         </div>
 
         <div class="form-row">
@@ -150,6 +249,110 @@
           <button type="submit" class="btn btn-primary" id="save-task-btn">Save Task</button>
         </div>
       </form>
+    </div>
+  </div>
+
+  <!-- Edit Profile Modal -->
+  <div class="modal-overlay" id="profile-modal">
+    <div class="glass-panel modal-content" style="max-width: 480px;">
+      <div class="modal-header">
+        <div style="display: flex; align-items: center; gap: 0.6rem;">
+          <span style="font-size: 1.3rem;">👤</span>
+          <h3 class="modal-title" style="margin: 0;">Account Profile</h3>
+        </div>
+        <button class="close-btn" onclick="closeEditProfileModal()">&times;</button>
+      </div>
+
+      <form id="profile-form" onsubmit="handleSaveProfile(event)">
+        <div class="profile-avatar-banner">
+          <div class="profile-big-avatar" id="profile-avatar-preview">U</div>
+          <div class="profile-meta-text">
+            <h4 id="profile-preview-name" style="color: var(--text-main); margin-bottom: 0.2rem; font-size: 1.1rem;">User</h4>
+            <p id="profile-preview-email" style="color: var(--text-muted); font-size: 0.85rem;">user@example.com</p>
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-top: 1.25rem;">
+          <label class="form-label" for="profile-name-input">Full Name *</label>
+          <input type="text" id="profile-name-input" class="form-control" required maxlength="50" placeholder="Your name">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="profile-email-input">Email Address *</label>
+          <input type="email" id="profile-email-input" class="form-control" required placeholder="your@email.com">
+        </div>
+
+        <!-- Optional Password Update -->
+        <div class="profile-password-section">
+          <div class="profile-password-header">
+            🔒 Update Password (Optional)
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="profile-current-password">Current Password</label>
+            <input type="password" id="profile-current-password" class="form-control" placeholder="Required only if changing password">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="profile-new-password">New Password</label>
+            <input type="password" id="profile-new-password" class="form-control" placeholder="At least 6 characters" minlength="6">
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 0.75rem; margin-top: 1.5rem;">
+          <button type="button" class="btn btn-secondary" onclick="closeEditProfileModal()">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="save-profile-btn">
+            <span id="save-profile-spinner" class="spinner-small" style="display: none;"></span>
+            <span id="save-profile-text">Save Changes</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- AI Daily Standup Briefing Modal -->
+  <div class="modal-overlay" id="briefing-modal">
+    <div class="glass-panel modal-content" style="max-width: 580px;">
+      <div class="modal-header">
+        <div style="display: flex; align-items: center; gap: 0.5rem;">
+          <span style="font-size: 1.4rem;">✨</span>
+          <h3 class="modal-title" style="margin: 0;">AI Morning Standup Briefing</h3>
+        </div>
+        <button class="close-btn" onclick="closeDailyBriefingModal()">&times;</button>
+      </div>
+
+      <div id="briefing-loading" style="text-align: center; padding: 2.5rem 1rem;">
+        <div class="spinner-small" style="width: 28px; height: 28px; margin-bottom: 1rem;"></div>
+        <p style="color: var(--text-muted); font-size: 0.95rem;">Gemini is analyzing your sprint priorities...</p>
+      </div>
+
+      <div id="briefing-body" style="display: none; padding-top: 0.5rem;">
+        <p id="briefing-greeting" style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.5rem;"></p>
+        <div id="briefing-headline" class="ai-briefing-headline"></div>
+
+        <div style="margin-bottom: 1rem;">
+          <div
+            style="font-size: 0.8rem; font-weight: 700; color: #a78bfa; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem;">
+            🎯 Recommended Focus Order
+          </div>
+          <div class="ai-priority-box">
+            <ul id="briefing-priorities" style="padding-left: 1.2rem; color: #e5e7eb;"></ul>
+          </div>
+        </div>
+
+        <div
+          style="background: rgba(6, 182, 212, 0.08); border: 1px solid rgba(6, 182, 212, 0.3); border-radius: var(--radius-sm); padding: 0.85rem 1rem; margin-bottom: 1.25rem;">
+          <div style="font-size: 0.8rem; font-weight: 700; color: #38bdf8; margin-bottom: 0.25rem;">💡 Productivity Tip:
+          </div>
+          <p id="briefing-tip" style="font-size: 0.88rem; color: #cbd5e1; margin: 0;"></p>
+        </div>
+
+        <div
+          style="display: flex; justify-content: space-between; align-items: center; padding-top: 0.5rem; border-top: 1px solid var(--border-color);">
+          <span id="briefing-energy" class="ai-badge">High Focus</span>
+          <button class="btn btn-primary btn-sm" onclick="closeDailyBriefingModal()">Got It, Let's Build! 🚀</button>
+        </div>
+      </div>
     </div>
   </div>
 

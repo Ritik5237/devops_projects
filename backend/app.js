@@ -7,6 +7,7 @@ dotenv.config();
 
 const authRoutes = require('./routes/authRoutes');
 const taskRoutes = require('./routes/taskRoutes');
+const aiRoutes = require('./routes/aiRoutes');
 const { notFound, errorHandler } = require('./middleware/errorMiddleware');
 
 const app = express();
@@ -31,6 +32,7 @@ app.get('/health', (req, res) => {
 // API Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/tasks', taskRoutes);
+app.use('/api/ai', aiRoutes);
 
 // Serve Frontend static files if directory exists
 const frontendPath = path.join(__dirname, '../frontend');

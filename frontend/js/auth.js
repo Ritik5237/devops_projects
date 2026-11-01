@@ -40,16 +40,6 @@ document.addEventListener('DOMContentLoaded', () => {
         submitBtn.innerHTML = '<span>Sign In</span>';
       }
     });
-
-    // One-Click Demo Credentials Auto-Fill
-    const demoBtn = document.getElementById('fill-demo-btn');
-    if (demoBtn) {
-      demoBtn.addEventListener('click', () => {
-        document.getElementById('email').value = 'ritik@taskflow.dev';
-        document.getElementById('password').value = 'Password123';
-        showToast('Demo credentials populated!', 'info');
-      });
-    }
   }
 
   // Handle Register Form

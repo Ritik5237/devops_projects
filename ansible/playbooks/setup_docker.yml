@@ -1,0 +1,67 @@
+---
+- name: Install & Configure Docker Engine and Docker Compose
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Update apt cache and install prerequisite packages
+      apt:
+        name:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - gnupg
+          - lsb-release
+          - software-properties-common
+        state: present
+        update_cache: yes
+
+    - name: Create directory for Docker GPG key
+      file:
+        path: /etc/apt/keyrings
+        state: directory
+        mode: '0755'
+
+    - name: Download Docker official GPG key
+      get_url:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        dest: /etc/apt/keyrings/docker.asc
+        mode: '0644'
+
+    - name: Add Docker official repository to apt sources
+      apt_repository:
+        repo: "deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
+        state: present
+        filename: docker
+
+    - name: Install Docker CE, CLI, containerd, and Compose plugin
+      apt:
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+          - docker-buildx-plugin
+          - docker-compose-plugin
+        state: present
+        update_cache: yes
+
+    - name: Ensure Docker service is enabled and started
+      service:
+        name: docker
+        state: started
+        enabled: yes
+
+    - name: Add remote user to docker group
+      user:
+        name: "{{ ansible_user }}"
+        groups: docker
+        append: yes
+
+    - name: Validate Docker is operational
+      command: docker --version
+      register: docker_version_output
+      changed_when: false
+
+    - name: Print Docker version
+      debug:
+        msg: "Installed {{ docker_version_output.stdout }}"

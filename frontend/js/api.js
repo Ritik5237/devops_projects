@@ -89,6 +89,17 @@ const API = {
     return this.request('/auth/me');
   },
 
+  async updateProfile(profileData) {
+    const res = await this.request('/auth/profile', {
+      method: 'PUT',
+      body: JSON.stringify(profileData)
+    });
+    if (res.user) {
+      this.setUser(res.user);
+    }
+    return res;
+  },
+
   // Task Endpoints
   async getTasks(params = {}) {
     const query = new URLSearchParams();
@@ -127,6 +138,26 @@ const API = {
 
   async getStats() {
     return this.request('/tasks/stats/summary');
+  },
+
+  // Gemini AI Endpoints
+  async aiBreakdown(payload) {
+    return this.request('/ai/breakdown', {
+      method: 'POST',
+      body: JSON.stringify(payload)
+    });
+  },
+
+  async aiParseTask(payload) {
+    const body = typeof payload === 'string' ? { text: payload } : payload;
+    return this.request('/ai/parse-task', {
+      method: 'POST',
+      body: JSON.stringify(body)
+    });
+  },
+
+  async aiGetBriefing() {
+    return this.request('/ai/briefing');
   }
 };
 

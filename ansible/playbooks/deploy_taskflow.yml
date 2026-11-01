@@ -1,0 +1,47 @@
+---
+- name: Deploy TaskFlow Application & Validate Health Probes
+  hosts: web_servers
+  become: yes
+
+  vars:
+    app_dir: /opt/taskflow
+    repo_url: https://github.com/ritikbhardwaj/TaskFlow.git
+    service_port: 5050
+
+  tasks:
+    - name: Ensure application directory exists
+      file:
+        path: "{{ app_dir }}"
+        state: directory
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+        mode: '0755'
+
+    - name: Clone or pull latest TaskFlow codebase
+      git:
+        repo: "{{ repo_url }}"
+        dest: "{{ app_dir }}"
+        version: main
+        force: yes
+      ignore_errors: yes
+
+    - name: Build and launch TaskFlow stack using Docker Compose
+      command: docker compose up -d --build
+      args:
+        chdir: "{{ app_dir }}"
+      become_user: "{{ ansible_user }}"
+
+    - name: Wait for TaskFlow container health probe to return UP
+      uri:
+        url: "http://localhost:{{ service_port }}/health"
+        method: GET
+        status_code: 200
+        return_content: yes
+      register: health_check
+      until: health_check.status == 200
+      retries: 15
+      delay: 3
+
+    - name: Display deployment success status
+      debug:
+        msg: "🎉 TaskFlow deployed successfully! Response: {{ health_check.json }}"

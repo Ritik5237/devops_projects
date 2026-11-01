@@ -3,92 +3,332 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TaskFlow — Cloud-Native Task Manager</title>
+  <title>TaskFlow — Simple, Fast & Focused Task Management</title>
+  <meta name="description" content="TaskFlow is a clean, modern task management platform that helps you organize priorities, track deadlines, and achieve your daily goals effortlessly.">
   <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-  <!-- Navigation -->
-  <header class="navbar">
+  <!-- Navigation Bar -->
+  <header class="navbar" id="top-navbar">
     <a href="/index.html" class="brand">
       <span>⚡ TaskFlow</span>
-      <span class="brand-badge">DevOps Edition</span>
     </a>
     <nav class="nav-links">
+      <a href="#features" class="nav-link">Features</a>
+      <a href="#preview" class="nav-link">Live Preview</a>
+      <a href="#how-it-works" class="nav-link">How It Works</a>
+      <a href="#faq" class="nav-link">FAQ</a>
       <a href="/login.html" class="nav-link">Sign In</a>
       <a href="/register.html" class="btn btn-primary btn-sm">Get Started</a>
     </nav>
   </header>
 
   <!-- Hero Section -->
-  <main class="hero">
-    <div class="hero-pill">
-      <span>🚀 End-to-End DevOps Architecture</span>
-    </div>
-    <h1 class="hero-title">
-      Streamlined Task Management<br>
-      <span class="text-gradient">Engineered for the Cloud</span>
-    </h1>
-    <p class="hero-desc">
-      A modern, scalable Task Manager platform built with Node.js, Express, and MongoDB, backed by a production-ready DevOps automation lifecycle.
-    </p>
+  <main>
+    <section class="hero-wrapper">
+      <div class="hero-pill-badge">
+        <span>✨ Distraction-Free Task Management</span>
+      </div>
 
-    <div class="hero-actions">
-      <a href="/register.html" class="btn btn-primary">Launch TaskFlow Free</a>
-      <a href="/login.html" class="btn btn-secondary">Sign In to Dashboard</a>
-    </div>
+      <h1 class="hero-title-main">
+        Organize Your Work.<br>
+        <span class="text-gradient">Accomplish Your Goals.</span>
+      </h1>
 
-    <!-- DevOps Pipeline Architecture Showcase -->
-    <div class="glass-panel pipeline-showcase">
-      <h3 style="font-size: 1.3rem; font-weight: 700;">Complete DevOps Automation Pipeline</h3>
-      <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.25rem;">
-        Integrated through GitHub, Jenkins, Docker, Kubernetes, Terraform, and ArgoCD
+      <p class="hero-subtitle">
+        A clean, lightning-fast task management app designed to help you stay focused on what truly matters. Track priorities, manage deadlines, and build daily momentum without the clutter.
       </p>
 
-      <div class="pipeline-grid">
-        <div class="pipeline-card">
-          <div class="pipeline-icon">🐙</div>
-          <h4>Git / GitHub</h4>
-          <p>Version Control</p>
+      <div class="hero-cta-group">
+        <a href="/register.html" class="btn-hero-primary">
+          <span>Get Started Free</span>
+          <span>→</span>
+        </a>
+        <a href="/login.html" class="btn-hero-secondary">
+          <span>Sign In to TaskFlow</span>
+        </a>
+      </div>
+
+      <!-- Quick Highlights Strip -->
+      <div class="metrics-strip">
+        <div class="metric-item">
+          <div class="metric-value">🎯 Priority Matrix</div>
+          <div class="metric-label">High, Medium & Low Urgency</div>
         </div>
-        <div class="pipeline-card">
-          <div class="pipeline-icon">👨‍✈️</div>
-          <h4>Jenkins</h4>
-          <p>CI Automation</p>
+        <div class="metric-item">
+          <div class="metric-value">⚡ Instant Updates</div>
+          <div class="metric-label">Real-Time Status Tracking</div>
         </div>
-        <div class="pipeline-card">
-          <div class="pipeline-icon">🐳</div>
-          <h4>Docker</h4>
-          <p>Containers</p>
+        <div class="metric-item">
+          <div class="metric-value">🔍 Fast Search</div>
+          <div class="metric-label">Filter by Keyword & Due Date</div>
         </div>
-        <div class="pipeline-card">
-          <div class="pipeline-icon">☸️</div>
-          <h4>Kubernetes</h4>
-          <p>Orchestration</p>
-        </div>
-        <div class="pipeline-card">
-          <div class="pipeline-icon">📜</div>
-          <h4>Ansible</h4>
-          <p>Configuration</p>
-        </div>
-        <div class="pipeline-card">
-          <div class="pipeline-icon">🏗️</div>
-          <h4>Terraform</h4>
-          <p>IaC Cloud</p>
-        </div>
-        <div class="pipeline-card">
-          <div class="pipeline-icon">📊</div>
-          <h4>Prometheus</h4>
-          <p>Metrics & Alerts</p>
-        </div>
-        <div class="pipeline-card">
-          <div class="pipeline-icon">🐙</div>
-          <h4>ArgoCD</h4>
-          <p>GitOps Delivery</p>
+        <div class="metric-item">
+          <div class="metric-value">🔒 100% Private</div>
+          <div class="metric-label">Secure & Isolated Data</div>
         </div>
       </div>
-    </div>
+    </section>
+
+    <!-- Interactive Live Preview Section -->
+    <section class="landing-section" id="preview">
+      <div class="section-header">
+        <span class="section-pill">Interactive Preview</span>
+        <h2 class="section-title">Designed for Clarity and Speed</h2>
+        <p class="section-desc">
+          Experience how clean and effortless task management feels. Click through the status filters below to see active tasks in action.
+        </p>
+      </div>
+
+      <div class="mockup-window">
+        <!-- macOS Window Titlebar -->
+        <div class="mockup-titlebar">
+          <div class="mockup-traffic-lights">
+            <span class="mockup-dot red"></span>
+            <span class="mockup-dot yellow"></span>
+            <span class="mockup-dot green"></span>
+          </div>
+          <div class="mockup-url-bar">
+            <span>🔒</span>
+            <span>https://app.taskflow.dev/dashboard</span>
+          </div>
+          <div class="mockup-user-pill">
+            <span>👤 Alex Rivera</span>
+            <span class="badge status-Completed" style="font-size: 0.68rem;">Active</span>
+          </div>
+        </div>
+
+        <!-- Mockup Content -->
+        <div class="mockup-body">
+          <div class="mockup-filter-bar">
+            <div class="mock-filter-chips">
+              <button class="mock-filter-chip active" data-filter="All">All Tasks (6)</button>
+              <button class="mock-filter-chip" data-filter="Pending">Pending (2)</button>
+              <button class="mock-filter-chip" data-filter="In Progress">In Progress (2)</button>
+              <button class="mock-filter-chip" data-filter="Completed">Completed (2)</button>
+              <button class="mock-filter-chip" data-filter="High">High Priority (2)</button>
+            </div>
+            <div>
+              <a href="/register.html" class="btn btn-primary btn-sm">+ Add Task</a>
+            </div>
+          </div>
+
+          <!-- Dynamic Task Cards -->
+          <div id="mockup-tasks-container" class="mockup-tasks-grid"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Core Features Section -->
+    <section class="landing-section" id="features">
+      <div class="section-header">
+        <span class="section-pill">Core Features</span>
+        <h2 class="section-title">Everything You Need to Stay On Track</h2>
+        <p class="section-desc">
+          Thoughtfully crafted features that help you plan your day, manage your workload, and achieve your targets with peace of mind.
+        </p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-box">
+          <div class="feature-icon-wrapper">🎯</div>
+          <h3>Smart Prioritization</h3>
+          <p>
+            Tag tasks as High, Medium, or Low priority so you immediately know which critical deliverables need your focus first.
+          </p>
+        </div>
+
+        <div class="feature-box">
+          <div class="feature-icon-wrapper">🔄</div>
+          <h3>Status Lifecycles</h3>
+          <p>
+            Track every item from Pending to In Progress to Completed. Clear visual indicators show your team’s real-time velocity.
+          </p>
+        </div>
+
+        <div class="feature-box">
+          <div class="feature-icon-wrapper">🔍</div>
+          <h3>Instant Search & Filters</h3>
+          <p>
+            Locate any task in milliseconds with fast keyword search and granular filters by status, priority, or creation date.
+          </p>
+        </div>
+
+        <div class="feature-box">
+          <div class="feature-icon-wrapper">📅</div>
+          <h3>Deadline & Due Date Tracking</h3>
+          <p>
+            Keep track of critical milestones with clear deadline markers so you never let an important date slip through the cracks.
+          </p>
+        </div>
+
+        <div class="feature-box">
+          <div class="feature-icon-wrapper">📊</div>
+          <h3>Visual Progress Analytics</h3>
+          <p>
+            Get a quick high-level glance at your workload with live metric cards showing total, pending, and completed tasks.
+          </p>
+        </div>
+
+        <div class="feature-box">
+          <div class="feature-icon-wrapper">🌙</div>
+          <h3>Distraction-Free Dark Mode</h3>
+          <p>
+            A high-contrast, modern dark aesthetic designed to reduce visual fatigue and keep you focused throughout your workday.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="landing-section" id="how-it-works">
+      <div class="section-header">
+        <span class="section-pill">Workflow</span>
+        <h2 class="section-title">How TaskFlow Works</h2>
+        <p class="section-desc">
+          Three simple steps to bring calm, structure, and clarity to your daily routine.
+        </p>
+      </div>
+
+      <div class="milestones-grid">
+        <div class="milestone-card completed">
+          <span class="milestone-badge">Step 1</span>
+          <h4>Capture Your Tasks</h4>
+          <p>
+            Quickly add tasks with titles, detailed notes, priority levels, and due dates whenever ideas or action items arise.
+          </p>
+        </div>
+
+        <div class="milestone-card active-phase">
+          <span class="milestone-badge">Step 2</span>
+          <h4>Organize & Focus</h4>
+          <p>
+            Sort by urgency, filter by status, and plan your daily schedule around what produces the highest impact.
+          </p>
+        </div>
+
+        <div class="milestone-card completed">
+          <span class="milestone-badge">Step 3</span>
+          <h4>Execute & Accomplish</h4>
+          <p>
+            Check off completed work, celebrate consistent progress, and keep your workload moving forward every day.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="landing-section" id="faq">
+      <div class="section-header">
+        <span class="section-pill">FAQ</span>
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <p class="section-desc">
+          Got questions? Here are quick answers to common queries about TaskFlow.
+        </p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-box">
+          <h3>Is TaskFlow free to use?</h3>
+          <p>
+            Yes! You can create a free account immediately to organize and manage all your tasks.
+          </p>
+        </div>
+
+        <div class="feature-box">
+          <h3>Is my data secure and private?</h3>
+          <p>
+            Yes. All accounts use salted bcrypt password hashing and token-based authentication. Your tasks are isolated to your account only.
+          </p>
+        </div>
+
+        <div class="feature-box">
+          <h3>Can I use TaskFlow on mobile devices?</h3>
+          <p>
+            Absolutely. TaskFlow is fully responsive and optimized for desktops, tablets, and smartphones.
+          </p>
+        </div>
+
+        <div class="feature-box">
+          <h3>How do I get started?</h3>
+          <p>
+            Simply click "Get Started" to create your free account in seconds with your name and email.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Call to Action Banner -->
+    <section class="landing-section">
+      <div class="cta-banner">
+        <h2>Ready to Master Your Daily Workflow?</h2>
+        <p>
+          Join thousands who organize their tasks with clarity and speed. Create your free account in seconds.
+        </p>
+        <div style="display: flex; gap: 1.25rem; justify-content: center; flex-wrap: wrap;">
+          <a href="/register.html" class="btn-hero-primary">
+            <span>Get Started for Free</span>
+          </a>
+          <a href="/login.html" class="btn-hero-secondary">
+            <span>Sign In to Your Workspace</span>
+          </a>
+        </div>
+      </div>
+    </section>
   </main>
 
+  <!-- Clean Professional Footer -->
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <div class="brand">
+          <span>⚡ TaskFlow</span>
+        </div>
+        <p>
+          A minimalist, lightning-fast task management platform designed to help you organize work and stay focused on what matters most.
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h5>Product</h5>
+        <ul class="footer-links">
+          <li><a href="#features">Features</a></li>
+          <li><a href="#preview">Live Preview</a></li>
+          <li><a href="#how-it-works">How It Works</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Account</h5>
+        <ul class="footer-links">
+          <li><a href="/login.html">Sign In</a></li>
+          <li><a href="/register.html">Create Account</a></li>
+          <li><a href="/dashboard.html">Task Dashboard</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Support</h5>
+        <ul class="footer-links">
+          <li><a href="/login.html">Help Center</a></li>
+          <li><a href="/login.html">Privacy Policy</a></li>
+          <li><a href="/login.html">Terms of Service</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div>
+        © 2026 <strong>TaskFlow</strong>. All rights reserved.
+      </div>
+      <div>
+        <a href="#top-navbar" style="color: var(--text-muted); text-decoration: none;">Back to top ↑</a>
+      </div>
+    </div>
+  </footer>
+
   <script src="/js/api.js"></script>
+  <script src="/js/landing.js"></script>
 </body>
 </html>
